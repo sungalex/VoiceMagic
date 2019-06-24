@@ -44,9 +44,10 @@ def transcribe_streaming(stream_file, encoding="LINEAR16", sample_rate=16000):
     # streaming_recognize returns a generator.
     responses = client.streaming_recognize(streaming_config, requests)
     
-    words_with_tag = []
+    words_with_tags = []
     transcripts = []
 
+    print("Waiting for transcribe...")
     for response in responses:
         for result in response.results:
             alternatives = result.alternatives
@@ -58,10 +59,10 @@ def transcribe_streaming(stream_file, encoding="LINEAR16", sample_rate=16000):
                     start_time = round(words.start_time.seconds + words.start_time.nanos * 1e-9, 3)
                     end_time = round(words.end_time.seconds + words.end_time.nanos * 1e-9, 3)
                     speaker_tag = words.speaker_tag
-                    words_with_tag.append([word, start_time, end_time, speaker_tag])    # [word, start_time, end_time, speaker_tag]
-            print()
+                    words_with_tags.append([word, start_time, end_time, speaker_tag])    # [word, start_time, end_time, speaker_tag]
+            print()    # newline
     
-    return words_with_tag, transcripts
+    return words_with_tags, transcripts
 
 
 def transcribe_gcs(gcs_uri, encoding="LINEAR16", sample_rate=16000):
@@ -83,7 +84,7 @@ def transcribe_gcs(gcs_uri, encoding="LINEAR16", sample_rate=16000):
     print('Waiting for operation to complete...')
     response = operation.result(timeout=300)
 
-    words_with_tag = []
+    words_with_tags = []
     transcripts = []
 
     # Each result is for a consecutive portion of the audio.
@@ -92,15 +93,15 @@ def transcribe_gcs(gcs_uri, encoding="LINEAR16", sample_rate=16000):
         # The first alternative is the most likely one for this portion.
         print(u'Transcript: {}'.format(result.alternatives[0].transcript))
         transcripts.append(result.alternatives[0].transcript)    # punctuation 포함된 문장을 사용하기 위해 저장
-        for words in result.alternative[0].words:
+        for words in result.alternatives[0].words:
             word = words.word
             start_time = round(words.start_time.seconds + words.start_time.nanos * 1e-9, 3)
             end_time = round(words.end_time.seconds + words.end_time.nanos * 1e-9, 3)
             speaker_tag = words.speaker_tag
-            words_with_tag.append([word, start_time, end_time, speaker_tag])    # [word, start_time, end_time, speaker_tag]
+            words_with_tags.append([word, start_time, end_time, speaker_tag])    # [word, start_time, end_time, speaker_tag]
         print()
     
-    return words_with_tag, transcripts
+    return words_with_tags, transcripts
 
 
 def write_wave_frames(frames, output_file, channels, sample_width, frame_rate):
