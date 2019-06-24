@@ -137,7 +137,7 @@ def clean_collection(collection):
     return cleaned_collection
 
 
-def get_extended_lexicon(corpus, nouns=False):
+def get_extended_lexicon(corpus, nouns=False, stopwords=False):
     '''
     collection의 document별 content(전처리 된 content)를 받아서 token의 수를 늘려서 lexicon을 반환 합니다.
         --> token = 어절 + 형태소 + 바이그램(음절)
@@ -158,7 +158,20 @@ def get_extended_lexicon(corpus, nouns=False):
         noun_list = np.array([morphs[0] for morphs in np.array(kkma(corpus)) if morphs[1].startswith("N") and len(morphs[0]) > 1])
         extended_lexicon = np.append(extended_lexicon, noun_list)
 
-    return extended_lexicon
+    if stopwords == True:
+        clearn_lexicon = []
+        stopwords = []
+
+        with open("stopwords.txt", "r") as f:
+            stopwords.append(f.readline())
+        
+        for lexicon in extended_lexicon:
+            if lexicon not in stopwords:
+                clearn_lexicon.append(lexicon)
+
+        return clearn_lexicon
+    else:
+        return extended_lexicon
 
 
 def inverted_index_with_tf(collection):
@@ -223,10 +236,7 @@ def inverted_index_with_tf(collection):
             lexicon_idx = list(global_lexicon.keys()).index(term)
             posting_data = [lexicon_idx, doc_idx, max_tf(freq, max_freq, 0), before_idx]   # 처음 추가되는 lexicon은 before_idx가 None
             global_posting.append(posting_data)
-            posting_idx += 1
-        
-        if doc_idx % 50 == 49:
-            print("{0}개 뉴스 기사 indexing 완료".format(doc_idx+1))
+            posting_idx += 1        
     
     for i, posting_data in enumerate(global_posting):
         if posting_data[3] is None:
@@ -236,7 +246,7 @@ def inverted_index_with_tf(collection):
     for doc, tf in dtm.items():
         dtm_dict[doc] = tf
     
-    print("전체 {0}개 뉴스 기사 indexing 완료".format(doc_idx+1))
+    print("indexing 완료")
     return global_lexicon, global_posting, global_document, dtm_dict
 
 
