@@ -1,0 +1,9 @@
+Speaker1: Okay, I'm here.
+Speaker2: Hi, I'd like to buy a Chromecast and I was wondering whether you could help me with that.
+Speaker1: Sicily which color would you like we have blue black and red?
+Speaker2: Let's get the black one.
+Speaker1: Okay, great. Would you like the new Chromecast Ultra model or the regular compass?
+Speaker2: Regular Chromecast is fine.
+Speaker1: Okay. Sure. Would you like to ship it regular or Express?
+Speaker2: Express, please.
+Speaker1: Terrific. It's on the way. Thank you very much.
