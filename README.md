@@ -27,16 +27,21 @@ KAIT AI BM전문가 과정 "Voice Magic" 팀의 프로젝트 코드 공유를 �
 - Neutral, Happy, Sad, Angry, Fear 5가지 감정에 대한 확률 분석 결과 제공
 - 언어에 관계없이 음성의 어조로 분석 가능(한국어도 분석 가능) 하지만, 정확성에 대한 검토 필요함
 
+![마녀사냥_감성분석.png](./img/마녀사냥_감성분석.png)
+
 ## NLP 분석 : TakeView
 
-![cluster_keyword.png](./img/cluster_keyword.png)
+- Cluster Keywords
+![cluster_keyword.png](./img/cluster_keyword_2.png)
 
-![topic1.png](./img/topic1.png)
+- Topic1
+![topic1.png](./img/topic1_2.png)
 
-![topic2.png](./img/topic2.png)
+- Topic2
+![topic2.png](./img/topic2_2.png)
 
-![topic3.png](./img/topic3.png)
+- Word Cloud
+![word_cloud.png](./img/word_cloud_2.png)
 
-![word_cloud.png](./img/word_cloud.png)
-
-![key_paragraph.png](./img/key_paragraph.png)
+- Sentiment
+![key_paragraph.png](./img/sentiment.png)
