@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>Voice Magic Conference Report</title>
+
+    <style>
+        /* stype code */
+
+    </style>
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body id="app">
+<div class="jumbotron">
+    <div class="container container-fluid">
+        <h1>Voice Magic 회의록</h1><br>
+        <div class="row">
+            <div class="col-md-4">
+                <span class="input-group-btn">
+                    <input type="file" id="input-file" class="form-control btn btn-info">
+                </span>
+            </div>
+            <div class="col-md-3">
+                <select class="form-control btn btn-default" id="encoder">
+                    <option>FLAC</option>
+                    <option>LINEAR16</option>
+                    <option>MULAW</option>
+                    <option>AMR</option>
+                    <option>AMR_WB</option>
+                    <option>OGG_OPUS</option>
+                    <option>AMR_SPEEX_WITH_HEADER_BYTE</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select class="form-control btn btn-default" id="sample-rate">
+                    <option>8,000Khz</option>
+                    <option>16,000Khz</option>
+                    <option>44,100Khz</option>
+                    <option>48,000Khz</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button id="report-btn" type="button" class="btn btn-primary">Report</button>
+                <button id="save-btn" type="button" class="btn btn-success">Save</button>
+                <button id="edit-btn" type="button" class="btn btn-danger">Edit</button>
+                <button id="reset-btn" type="button" class="btn btn-warning">Reset</button>            
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container container-fluid">
+    <table class="table table-bordered table-responsive">
+        <tr class="active">
+            <td id="table-th1-td1"><h4>Column heading1</h4></td>
+            <td id="table-th1-td2"><h4>Column heading2</h4></td>
+            <td id="table-th1-td2"><h4>Column heading3</h4></td>
+        </tr>
+        <tr>
+            <td id="table-tr1-td1">
+                Column data1<br>
+                Column data1
+            </td>
+            <td id="table-tr1-td2">Column data2</td>
+            <td id="table-tr1-td3">Column data3 Column data3</td>
+        </tr>
+        <tr class="active">
+            <td id="table-th2-td1"><h4>Column heading1</h4></td>
+            <td id="table-th2-td2"><h4>Column heading2</h4></td>
+            <td id="table-th2-td3"><h4>Column heading3</h4></td>
+            </tr>
+        <tr>
+            <td id="table-tr2-td1">Column data1</td>
+            <td id="table-tr2-td2">Column data2 Column data2 Column data2 Column data2</td>
+            <td id="table-tr2-td3">
+                Column data3<br>
+                Column data3
+            </td>
+        </tr>
+        <tr class="active">
+            <td colspan="3" id="table-th3-td1"><h4>회의 내용</h4></td>
+        </tr>
+        <tr>
+            <td colspan="3" id="table-td3-td1">
+                <ul>
+                    <li id="table-td3-td1-li1">Conference Transcript1<br><br></li>
+                    <li id="table-td3-td1-li2">Conference Transcript2<br><br></li>
+                    <li id="table-td3-td1-li3">Conference Transcript3<br><br></li>
+                    <li id="table-td3-td1-li4">Conference Transcript4<br><br></li>
+                    <li id="table-td3-td1-li5">Conference Transcript5<br><br></li>
+                    <li id="table-td3-td1-li5">...<br><br></li>
+                    <li id="table-td3-td1-li5">...<br><br></li>
+                    <li id="table-td3-td1-li5">...<br><br></li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/underscore.js/1.8.3/underscore-min.js"></script>
+
+<!-- 버튼에 대한 Javascript Function 수정 필요 -->
+<script>
+    function openTextFile() {
+        var input = document.createElement("input");
+        input.type = "file";
+        input.accept = "text/plain";
+        input.onchange = function (event) {
+            processFile(event.target.files[0]);
+        };
+        input.click();
+    }
+    
+    function processFile(file) {
+        var reader = new FileReader();
+        var output = $('#table-td3-td1');
+        for (var li_tag in output.ui.li) {
+            li_tag.innerText = ""
+        }
+        reader.onload = function () {
+            var i = 0;
+            for (var result in reader.result) {
+                $('#table-td3-td1-li1').innerText = "보고서"
+                output.ul.li[i].innerText = result;
+                i += 1;
+            }
+        };
+        reader.readAsText(file, /* optional */ "euc-kr");
+    }
+
+    $('#report-btn').click(function () {
+        // $.ajax({
+        //     type: "POST",
+        //     url: "/report",
+        //     data: {
+        //         file_name: file_name,
+        //         sample_rate: sample_rate,
+        //         encoder: encoder
+        //     }
+        // }).done(function (reports) {
+        //     $('#table-td3-td1').empty();
+        // });
+        openTextFile();
+    });
+
+    $('#reset-btn').click(function () {
+        $().empty();
+    });
+
+    $('#edit-btn').click(function () {
+        $("#edits").empty();
+    });
+
+    $('#save-btn').click(function () {
+        var collection = "";
+        $.ajax({
+            type: "POST",
+            url: "/save",
+            data: {
+                collection: collection
+            }
+        }).done(function (saves) {
+            $('#saves').empty();
+        });
+    });
+</script>
+
+</body>
+
+</html>
