@@ -116,20 +116,23 @@
     }
     
     function processFile(file) {
+        var files = $('#input-file').files;
         var reader = new FileReader();
-        var output = $('#table-td3-td1');
-        for (var li_tag in output.ui.li) {
-            li_tag.innerText = ""
-        }
+        alert(files[0]);
         reader.onload = function () {
             var i = 0;
+            var outputs = $('li');
+            alert(output)
+            for (var output in outputs) {
+                output.innerText = ""
+            }
             for (var result in reader.result) {
                 $('#table-td3-td1-li1').innerText = "보고서"
-                output.ul.li[i].innerText = result;
+                outputs[i].innerText = result;
                 i += 1;
             }
         };
-        reader.readAsText(file, /* optional */ "euc-kr");
+        reader.readAsText(files[0]);
     }
 
     $('#report-btn').click(function () {
@@ -144,7 +147,9 @@
         // }).done(function (reports) {
         //     $('#table-td3-td1').empty();
         // });
-        openTextFile();
+        var inputFile = $('#input-file').val().split('\\');
+        var fileName = inputFile[inputFile.length-1];
+        processFile(fileName);
     });
 
     $('#reset-btn').click(function () {
