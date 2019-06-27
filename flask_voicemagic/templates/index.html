@@ -44,11 +44,14 @@
             <div class="col-md-3">
                 <button id="report-btn" type="button" class="btn btn-primary">Report</button>
                 <button id="save-btn" type="button" class="btn btn-success">Save</button>
-                <button id="edit-btn" type="button" class="btn btn-danger">Edit</button>
-                <button id="reset-btn" type="button" class="btn btn-warning">Reset</button>            
+                <button id="edit-btn" type="button" class="btn btn-warning">Edit</button>
+                <button id="reset-btn" type="button" class="btn btn-danger">Reset</button>            
             </div>
-            <div class="col-md-4">
-                <button id="word-map" type="button" class="btn btn-info">Word Map</button>            
+            <div class="col-md-1">
+                <button id="takeview-btn" type="button" class="btn btn-info">TakeView</button>            
+            </div>
+            <div class="col-md-3">
+                <button id="word-map" type="button" class="btn btn-info">Map</button>            
                 <button id="word-tree" type="button" class="btn btn-info">Tree</button>            
                 <button id="word-topic" type="button" class="btn btn-info">Topic</button>  
                 <button id="word-cloud" type="button" class="btn btn-info">Cloud</button>            
@@ -60,27 +63,27 @@
 <div class="container container-fluid">
     <table class="table table-bordered table-responsive">
         <tr class="active">
-            <td id="table-th1-td1"><h5>회의 제목</h5></td>
-            <td id="table-th1-td2"><h5>회의 일시</h5></td>
-            <td id="table-th1-td2"><h5>회의 참석자</h5></td>
+            <td id="table-th1-td1" class="text-center"><h4>회의 제목</h4></td>
+            <td id="table-th1-td2" class="text-center"><h4>회의 일시</h4></td>
+            <td id="table-th1-td2" class="text-center"><h4>회의 참석자</h4></td>
         </tr>
         <tr>
-            <td id="table-tr1-td1"><br><br></td>
-            <td id="table-tr1-td2"><br><br></td>
-            <td id="table-tr1-td3"><br><br></td>
+            <td id="table-tr1-td1" class="text-center"><br><br></td>
+            <td id="table-tr1-td2" class="text-center"><br><br></td>
+            <td id="table-tr1-td3" class="text-center"><br><br></td>
         </tr>
         <tr class="active">
-            <td id="table-th2-td1"><h5>회의 안건</h5></td>
-            <td id="table-th2-td2"><h5>작성자</h5></td>
-            <td id="table-th2-td3"><h5>소속</h5></td>
+            <td id="table-th2-td1" class="text-center"><h4>회의 안건</h4></td>
+            <td id="table-th2-td2" class="text-center"><h4>작성자</h4></td>
+            <td id="table-th2-td3" class="text-center"><h4>소속</h4></td>
             </tr>
         <tr>
-            <td id="table-tr2-td1"><br><br></td>
-            <td id="table-tr2-td2"><br><br></td>
-            <td id="table-tr2-td3"><br><br></td>
+            <td id="table-tr2-td1" class="text-center"><br><br></td>
+            <td id="table-tr2-td2" class="text-center"><br><br></td>
+            <td id="table-tr2-td3" class="text-center"><br><br></td>
         </tr>
         <tr class="active">
-            <td colspan="3" id="table-th3-td1"><h5>회의 내용</h5></td>
+            <td colspan="3" id="table-th3-td1" class="text-center"><h4>회의 내용</h4></td>
         </tr>
         <tr>
             <td colspan="3" id="table-td3-td1">
@@ -94,7 +97,7 @@
             </td>
         </tr>
         <tr class="active">
-            <td colspan="3" id="table-th4-td1"><h5>Action Items</h5></td>
+            <td colspan="3" id="table-th4-td1" class="text-center"><h4>Action Items</h4></td>
         </tr>
         <tr>
             <td colspan="3" id="table-td4-td1">
@@ -162,7 +165,7 @@
                 비즈니스 모델 Lean Canvas 보완<br>
                 비즈니스 모델 전환(Pivoting) 방향<br>
                 솔루션 개발 방안`;
-            var conf_author = "권도윤";
+            var conf_author = "권도연";
             var conf_org = "KAIT AI BM 전문가 과정";
 
             $('#table-tr1-td1').html(conf_title);
@@ -229,16 +232,23 @@
                 }, 3000);
         });
 
-        $('#reset-btn').click(function () {
-            resetFunction()
-        });
-
         $('#edit-btn').click(function () {
             alert("회의록 내용을 편집 합니다.(기능구현 예정)")
         });
 
         $('#save-btn').click(function () {
             alert("회의록을 저장 하였습니다.");
+        });
+
+        $('#reset-btn').click(function () {
+            resetFunction()
+        });
+
+        $('#takeview-btn').click(function () {
+            var url = "http://takeview.co.kr/search/documentaion_collect_external/";
+            var name = "take view";
+            var option = "width = 600, height = 550, top = 200, left = 200, location = no"
+            window.open(url, name, option);
         });
 
         $('#word-map').click(function () {
@@ -272,7 +282,7 @@
             $('#table-td3-td1').html(`
                 <p align="middle">
                     <iframe height="480" width="640" frameborder="0"
-                        src="">
+                        src="http://view.takeview.co.kr/ko-KR/embed?s=%2FservicesNS%2Fnobody%2FTakeview_Service%2Fsaved%2Fsearches%2Fwordcloudexample&oid=IBAfSffTxltEy_EqP_eoQ9ERASKHGD1Mt4V1U366SKNfUbzdnFofzk95k9U0WErxxsChyEErRoe7ZPLztP6JRZPYYnuEO7misckuP9xTaTzxhZcEtzckmacelzAMlcA0gLKhVdnrTfuXGJDjFdiOsyg">
                     </iframe>
                 </p>`);
         });
