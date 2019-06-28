@@ -49,7 +49,7 @@ KAIT AI BM전문가 과정 "Voice Magic" 팀의 프로젝트 코드 공유를 �
 
 ## 코드 파일에 대한 설명
 
-코드 파일을 실행하기 위해서는 [Google STT 개발환경설정]("google cloud speech-to-text 개발환경 설정하기.pdf") 필요 합니다.
+코드 파일을 실행하기 위해서는 Google Speech-to-Text API 개발환경설정이 필요 합니다. ("google cloud speech-to-text 개발환경 설정하기.pdf" 파일 참고)
 
 - [1.google_quickstart.ipynb](1.google_quickstart.ipynb), [1.google_quickstart.py](1.google_quickstart.py) : Google Cloud Speech-to-Text API Quick-Start example
 - [2.google_streaming.ipynb](2.google_streaming.ipynb), [2.google_streaming.py](2.google_streaming.py) : Google Cloud Speech-to-Text API Streaming example
