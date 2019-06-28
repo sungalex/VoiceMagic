@@ -10,6 +10,7 @@ KAIT AI BM전문가 과정 "Voice Magic" 팀의 프로젝트 코드 공유를 �
 4. 화자 분리는 en-US, en-IN, es-ES 언어 만 지원합니다. ([4.google_speaker_diarization_english.ipynb](4.google_speaker_diarization_english.ipynb) 참조)
 5. 2019.6월 현재 시점에 Google STT에서 지원하는 긴 오디오의 한국어 음성에 사용 가능한 솔루션은 Long_Running 방식(위 3번 항목) 입니다. (**화자 분할은 지원 안됨**)
 6. 10M 이상의 긴 오디어 파일을 Streaming 방식으로 처리하기 위해서는, 오디오 파일을 10M 이하로 잘라서 처리하는 방법이 있습니다. ([7.google_streaming_with_long_audio.ipynb](7.google_streaming_with_long_audio.ipynb) 참조, 결과를 text 파일로 저장하는 기능 포함)
+7. Microphone Streaming API를 이용해서, 긴 파일을 실시간 Streaming 방식으로 처리하는 방법은 [8.google_streaming_with_microphone_emulate.ipynb](8.google_streaming_with_microphone_emulate.ipynb) 파일과 [modules/google_stt.py](modules/google_stt.py) 코드를 참고하세요.
 
 ### Config 속성 : google.cloud.speech.types.RecognitionConfig()
 
