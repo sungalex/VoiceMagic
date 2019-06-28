@@ -134,6 +134,31 @@
         reader.readAsText(files[0]);
     }
 
+    function readTextFile(file) {
+        $.get(file, function(data) {
+            var lines = data.split("\n");
+            var sentences = new Array();
+            var sent_length = 100;
+            $.each(lines, function(n, elem) {
+                if (elem.length > sent_length && elem.charAt(elem.length-1) != "?") {
+                    sentences.push(elem);
+                }
+            })
+
+            setTimeout(
+                function() { $('#table-td3-td1-li1').html(sentences[0] + "<br><br>"); }, 500);
+            setTimeout(
+                function() { $('#table-td3-td1-li2').html(sentences[1] + "<br><br>"); }, 1000);
+            setTimeout(
+                function() { $('#table-td3-td1-li3').html(sentences[2] + "<br><br>"); }, 1500);
+            setTimeout(
+                function() { $('#table-td3-td1-li4').html(sentences[3] + "<br><br>"); }, 2000);
+            setTimeout(
+                function() { $('#table-td3-td1-li5').html(sentences[4] + "<br><br>"); }, 2500);
+
+        });
+    }
+
     function resetFunction() {
         $('#table-td3-td1').html(`
             <ul>
@@ -154,82 +179,46 @@
         );
     }
 
-    function InitFunction() {
+    function reportFunction() {
+        resetFunction()
+
+        // [work-to-do]: 일정표에서 회의 정보를 가져오도록 개발 필요
+        var conf_title = "Voice Magic 서비스 개발 회의";
+        var conf_date = "2019. 06. 28";
+        var conf_attendants = "지계광, 박형일, 윤기영, 이성식, 권도연, 채수삼";
+        var conf_agenda = `
+            비즈니스 모델 Lean Canvas 보완<br>
+            비즈니스 모델 전환(Pivoting) 방향<br>
+            솔루션 개발 방안`;
+        var conf_author = "권도연";
+        var conf_org = "KAIT AI BM 전문가 과정";
+
+        $('#table-tr1-td1').html(conf_title);
+        $('#table-tr1-td2').html(conf_date);
+        $('#table-tr1-td3').html(conf_attendants);
+        $('#table-tr2-td1').html(conf_agenda);
+        $('#table-tr2-td2').html(conf_author);
+        $('#table-tr2-td3').html(conf_org);
+
+        // STT로 변환된 Transcript를 전달
+        readTextFile("/static/19m_20181220_deominju_16000.txt")
+
+        setTimeout(
+            function() 
+            {
+                $('#table-td4-td1').html(`
+                    <ul>
+                        <li id="table-td4-td1-li1">action item 1<br><br></li>
+                        <li id="table-td4-td1-li2">action item 2<br><br></li>
+                        <li id="table-td4-td1-li3">action item 3<br><br></li>
+                    </ul>`
+                );
+            }, 3000);
+    }
+
+    function initFunction() {
         $('#report-btn').click(function () {
-            resetFunction()
-
-            var conf_title = "Voice Magic 서비스 개발 회의";
-            var conf_date = "2019. 06. 28";
-            var conf_attendants = "지계광, 박형일, 윤기영, 이성식, 권도연, 채수삼";
-            var conf_agenda = `
-                비즈니스 모델 Lean Canvas 보완<br>
-                비즈니스 모델 전환(Pivoting) 방향<br>
-                솔루션 개발 방안`;
-            var conf_author = "권도연";
-            var conf_org = "KAIT AI BM 전문가 과정";
-
-            $('#table-tr1-td1').html(conf_title);
-            $('#table-tr1-td2').html(conf_date);
-            $('#table-tr1-td3').html(conf_attendants);
-            $('#table-tr2-td1').html(conf_agenda);
-            $('#table-tr2-td2').html(conf_author);
-            $('#table-tr2-td3').html(conf_org);
-
-            var li1 = `
-                빨리 정리를 하자면 저는 오후에 사무실 이야기하는 쿨하게 헤어지는 것 불가능하다고 아름다운 이별 미드가 사람들을 많이 망쳐 놨어. 그래요. 뭐 연락을 한다고 칩시다. 근데 그거를 굳이 내 앞에서 할 필요 없다고 생각해. 만약에 내가 아끼는 사람이 그로 인해 스트레스를 받는다고 얘기했으면 9시 그 앞에서 어. 그래. 그거는 별론 거 같아. 그래. 친구 관계 내 앞에서 통화 하지 마라. 내가 마음이 너무 아파. 여자도 좀 더 조심하려고 하고 그런 그렇게 돼야 되는게 좋은 거 아니에요. 그래서 오늘 뭐 이거 목소리가 들려 함께 해 봤습니다. 남자분들 여자분들 이야기 좋고요.
-사랑은 용기있는자가 쟁취한다. 너 옛날 말입니다. 사람 그린라이트를 이거는 제가 칭찬합니다. 알송 달송 어려운 신호들을 저희가 놓치지않고 알려 드립니다.
-                <br><br>`;
-            var li2 = `
-                그러니까 이거 이거 이거 한번 보도록 정말 오래된 네비 설치 거 있거든요. 해서 둘이 손잡고 다녀 아무런 감정이 없는 이거든요. 근데 제가 저번에 우리 사귀자고 장난 한번 썼어요. 처음에 그 여자애가 오더니 거절하는 거야. 근데 얼마 왜 진심으로 생각해 볼게. 이러는 거야? 갑자기 근데 친구 제가 사귈 수 있을까? 이런 소리가 작아서요. 근데 또 어제는 자기 놀러 가는데 그냥 자라고 잘 될 수 있을 거 같다는 그런 식으로 얘기를 하더라고요. 진짜 그치면 왜 그런지 모르겠어요. 이러는 거 혹시 클린라이트 싫어해요.
-                <br><br>`;
-            var li3 = `
-                내가 볼 때는 여자 분이 남자가 마음에 들었을 수도 있어요. 그냥 친구라고 이렇게 지내면서 집에 가서 혼자서 오늘은 뭐 이렇게 손도 잡고 뭐 어떻게 꺼? 어떻게 의미부여하는 손자들에게 설레어 할 수도 있는데 남자분이 딱 그 얘기를 하니까 이제 응. 그렇게 저는 생각을 해요. 아니, 난 지금 갑자기 진짜 머리가 생각해 보니까 이성친구랑 손을 잡고 다니는 건 이성친구를 넘어가는 거예요. 저는 아, 그럼요. 아니, 그냥 이렇게 친구면 아, 그래. 그거 들어가면 정도지. 어디 가는데 손을 잡고 가면서 우린 친구야 하는 건 너네 너네 숨기고 있는 거야. 너의 마음을 일단 잘 바라봐. 어렸을 때 인상이었는데 뭘 누나가 나에 대해서 남자로 생각한 건데 저는 여자가 생각하고 있었어.
-                <br><br>`;
-            var li4 = `
-                이 누나는 되게 자연스럽게 저 귀엽게 생각 혼났네. 같은데 저는 그때 여기 가슴살 이렇게 하면은 누나가 놀랄까봐. 그냥 근데 여기서 지금 막 먹고 집에 가서 의미하고 한다고요. 아까 그거 누나가 있을 때 핫도그 냄새도 복귀하면서 복지적 뽑기 제가 항상 하는 애가 우리가 이성 친구가 아닌가요를 물어볼 때 나중에 눈을 보고 뉴스를 본 다음에 입을 맞추고 싶은 친구가 아니고 근데 이렇게 받는데 키스하는 상상 할 수가 없어요. 어떤 기분일까? 이렇게 되면 좋아하는 거예요. 가장 간단한 아니에요. 아니, 근데 넌 스스로 치마를
-제가 아는 모든 여자 데이터베이스를 지금 졸려 반대 머릿속으로 보고 싶은데 많이 더러워진 나이 말고 인터넷 스킨십을 했을 때 여자들이 있잖아요. 어디 어디 어디 부위가 아니? 원피스 입었어요. 그래서 이제 무릎이 맨 살이에요. 남자도 안 되게 반바지 줬단 말이야. 이렇게 나갈 때 무릎 무릎 접히는 부분이 어, 그녀의 무릎 팍 팍 쪽에 갔는데 그때 살짝 묻을 그때는 느낌하고 확대는 느낌 하고 그다음에 가만히 있는 느낌을 진짜 다르잖아요. 미르 느낌.
-                <br><br>`;
-            var li5 = `
-                걸어가다가 같은 거 안 들어준다. 그래서 마음이 좀 그거 드렸거든요. 수도 있었는데 가방 들어 준다는 거 이거 그린라이트 남자의 정의를 대부분의 남자를 얘기하는 겁니다. 물론 매너가 뭐야 돼 있는 거는 좀 그런 편이거든요. 제가 너무 무거워. 정말 관심이 없고 내가 싫어하는 애 뭐 요즘 들어 줄게. 할 수 있는 편이에요. 그런 사람 말고 자기가 싫으면 아무것도 안 해 주면 그 경험이 있는 분들 여성분들 - 있지 않습니까? 이게 진짜 무겁습니다. 2만 원 크기는 어떻게 이렇게 무겁지라는 마음이 너무 너무 고운데 그때를들을 정도면은 당연히 어떤 마음이 있어서 그 줄어드는 거군요.
-                <br><br>`;
-
-            setTimeout(
-                function() 
-                {
-                    $('#table-td3-td1-li1').html(li1);
-                }, 500);
-            setTimeout(
-                function() 
-                {
-                    $('#table-td3-td1-li2').html(li2);
-                }, 1000);
-            setTimeout(
-                function() 
-                {
-                    $('#table-td3-td1-li3').html(li3);
-                }, 1500);
-            setTimeout(
-                function() 
-                {
-                    $('#table-td3-td1-li4').html(li4);
-                }, 2000);
-            setTimeout(
-                function() 
-                {
-                    $('#table-td3-td1-li5').html(li5);
-                }, 2500);
-            
-            setTimeout(
-                function() 
-                {
-                    $('#table-td4-td1').html(`
-                        <ul>
-                            <li id="table-td4-td1-li1">action item 1<br><br></li>
-                            <li id="table-td4-td1-li2">action item 2<br><br></li>
-                            <li id="table-td4-td1-li3">action item 3<br><br></li>
-                        </ul>`
-                    );
-                }, 3000);
+            reportFunction()
         });
 
         $('#edit-btn').click(function () {
@@ -288,7 +277,7 @@
         });
     }
 
-    InitFunction()
+    initFunction()
 
 </script>
 
