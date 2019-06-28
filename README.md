@@ -46,3 +46,29 @@ KAIT AI BM전문가 과정 "Voice Magic" 팀의 프로젝트 코드 공유를 �
 
 - Sentiment
 ![key_paragraph.png](./img/sentiment.png)
+
+## 코드 파일에 대한 설명
+
+코드 파일을 실행하기 위해서는 [Google STT 개발환경설정]("google cloud speech-to-text 개발환경 설정하기.pdf") 필요 합니다.
+
+- [1.google_quickstart.ipynb](1.google_quickstart.ipynb), [1.google_quickstart.py](1.google_quickstart.py) : Google Cloud Speech-to-Text API Quick-Start example
+- [2.google_streaming.ipynb](2.google_streaming.ipynb), [2.google_streaming.py](2.google_streaming.py) : Google Cloud Speech-to-Text API Streaming example
+- [3.google_long_running_with_gcs.ipynb](3.google_long_running_with_gcs.ipynb), [3.google_long_running_with_gcs.py](3.google_long_running_with_gcs.py) : 긴 오디오 파일을 비동기 방식으로 처리하는 샘플(오디오 파일은 Google Cloud Storage에 업로드 후 사용 => 오디오 파일 크기 제한은 없으나, 전체 파일을 모두 변환 후 응답을 받을 수 있음)
+  - Google Cloud Storage 설정 방법 참고 : [https://cloud.google.com/storage/docs/quickstart-console](https://cloud.google.com/storage/docs/quickstart-console)
+- [4.google_speaker_diarization_english.ipynb](4.google_speaker_diarization_english.ipynb), [4.google_speaker_diarization_english.py](4.google_speaker_diarization_english.py) : Google Cloud Speech-to-Text API 화자 분리 샘플(English only)
+- [5-google_long_running_with_gcs-sentence_reconstruction.ipynb](5-google_long_running_with_gcs-sentence_reconstruction.ipynb) : 위의 3번 파일에 Transcript를 구두점 기준으로 문장을 나누는 Sentence tokenize 기능 추가
+- [6.etri_asr.ipynb](6.etri_asr.ipynb), [6.etri_asr.py](6.etri_asr.py) : ETRI Open API(음성인식) 샘플 코드
+  - 가이드 문서 참조 : [http://aiopen.etri.re.kr/guide_recognition.php](http://aiopen.etri.re.kr/guide_recognition.php)
+- [7.google_streaming_with_long_audio.ipynb](7.google_streaming_with_long_audio.ipynb) : 위의 2번 항목의 코드(Streaming 방식)는 10M 이하의 파일 만 처리하도록 하는 API 제한사항이 있어서, 10M 이상의 파일을 10M 이하로 자르면서 Streaming 하도록 개선한 샘플
+- [8.google_streaming_with_microphone_emulate.ipynb](8.google_streaming_with_microphone_emulate.ipynb) : Google Cloud Speech-to-Text API Microphone Streaming emulate sample
+  - Microphone 오디오 파일을 Streaming 방식으로 처리하는 샘플(실제는 저장된 오디오 파일을 읽어서 Streaming 방식으로 처리)
+  - 참고 : [https://cloud.google.com/speech-to-text/docs/streaming-recognize?hl=ko#speech-streaming-mic-recognize-python](https://cloud.google.com/speech-to-text/docs/streaming-recognize?hl=ko#speech-streaming-mic-recognize-python)
+  - Microphone Streaming 오디오 처리는 300초 시간 제한이 있음 : 더 긴 파일은 파일을 잘라서 처리하도록 개선한 샘플임 <br>
+  (OutOfRange: 400 Exceeded maximum allowed stream duration of 305 seconds.)
+- [nlp_functions_test.ipynb](nlp_functions_test.ipynb) : Google STT로 변환한 Transcript에 자연어처리(NLP) 기법(TF-IDF)을 이용하여, 자연어 검색, WordCloud, K-Means Clustering을 구현한 샘플
+- [streaming_audio_with_pyaudio.ipynb](streaming_audio_with_pyaudio.ipynb), [streaming_audio_with_pyaudio.py](streaming_audio_with_pyaudio.py) : Audio Stream 처리를 위해 Python pyaudio, wave 모듈을 사용하는 샘플(오디오를 읽어서 Play 하는 가장 기본 코드)
+- [VokaturiAPI.ipynb](VokaturiAPI.ipynb) : 음성으로 부터 어조를 분석하여 감성분석 결과를 출력해주는 Vokaturi 라이브러리를 이용하는 샘플
+  - 참고 : [https://developers.vokaturi.com/getting-started/overview](https://developers.vokaturi.com/getting-started/overview)
+- [modules/google_stt.py](modules/google_stt.py) : Google Speech-to-Text API를 이용하기 위한 Functions (샘플 코드에 있는 기능들을 모듈로 만들었음)
+- [modules/info_retrieval.py](modules/info_retrieval.py) : 자연어 처리(특히, Information Retrival)에 사용되는 Functions (TF-IDF, Cosine Similarity, Euclidian Distance 등)
+- [modules/ngram.py](modules/ngram.py) : N-Gram 언어 모델 Functions(음절 N-Gram, 어절 N-Gram)
